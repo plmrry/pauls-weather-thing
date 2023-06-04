@@ -12,6 +12,7 @@
 		"@sveltejs/kit": "1",
 		"d3": "7",
 		"everpolate": "^0.0.3",
+		"playwright": "1",
 		"prettier": "2",
 		"prettier-plugin-svelte": "2",
 		"svelte": "3",
