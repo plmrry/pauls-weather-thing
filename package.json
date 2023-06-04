@@ -3,7 +3,7 @@
 	"version": "0.0.1",
 	"scripts": {
 		"dev": "vite dev",
-		"build": "vite build && npx playwright install"
+		"build": "vite build"
 	},
 	"type": "module",
 	"dependencies": {
@@ -13,7 +13,6 @@
 		"canvas": "2",
 		"d3": "7",
 		"everpolate": "^0.0.3",
-		"playwright": "1",
 		"prettier": "2",
 		"prettier-plugin-svelte": "2",
 		"svelte": "3",
