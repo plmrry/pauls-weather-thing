@@ -1,3 +1,4 @@
+// @ts-check
 import { browser } from '$app/environment';
 import { writable, readable, derived } from 'svelte/store';
 import * as d3 from 'd3';
@@ -6,7 +7,7 @@ import * as everpolate from 'everpolate';
 
 export const debug_mode = writable(false);
 
-const tick = readable(0, (set) => {
+const tick = readable(new Date(), (set) => {
 	setInterval(() => set(new Date()), 10_000);
 });
 
@@ -27,7 +28,8 @@ const tide_data = derived(
 			url.searchParams.set(`time_zone`, `gmt`);
 			url.searchParams.set(`units`, `english`);
 			url.searchParams.set(`format`, `json`);
-			const response_1_minute = await d3.json(url).catch(() => undefined);
+			/** @type {any} */
+			const response_1_minute = await d3.json(url.toString()).catch(() => undefined);
 			return response_1_minute.predictions
 				.map((d) => ({
 					...d,
@@ -42,11 +44,16 @@ const tide_data = derived(
 	[]
 );
 
+/** @type {import('svelte/store').Readable<any>} */
 const weather_data = derived(
 	tick,
 	($tick, set) => {
 		if (!browser) return;
+		/**
+		 * @returns {Promise<any>}
+		 */
 		async function get_weather_data() {
+			/** @type {any} */
 			const weather_gov_grid_points = await d3.json(
 				`https://api.weather.gov/points/26.3995,-80.0656`
 			);
@@ -60,9 +67,9 @@ const weather_data = derived(
 
 		get_weather_data()
 			.then((data) => set(data))
-			.catch(() => set([]));
+			.catch(() => set(undefined));
 	},
-	[]
+	{}
 );
 
 export const tide_plot = derived(tide_data, ($tide_data) => {
@@ -74,6 +81,7 @@ export const tide_plot = derived(tide_data, ($tide_data) => {
 });
 
 export const temperature_plot = derived(weather_data, ($weather_data) => {
+	console.log({ $weather_data });
 	const munged = ($weather_data?.properties?.temperature?.values ?? [])
 		.map(parse_object_stupid_time)
 		.map((d) => ({ ...d, value: d.value * 1.8 + 32 }));
