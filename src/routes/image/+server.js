@@ -8,7 +8,7 @@ export async function GET() {
 	// Create an SVG string with a circle and some text
 	const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200">
     <circle cx="100" cy="100" r="50" fill="red" />
-    <text x="50" y="50" font-family="Verdana" font-size="35" fill="blue">Hello</text>
+    <text x="10" y="50" font-family="Verdana" font-size="15" fill="blue">${new Date().toLocaleString()}</text>
 </svg>`;
 
 	// Convert the SVG to a PNG
