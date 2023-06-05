@@ -9,7 +9,7 @@ export async function GET() {
 	const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200">
     <circle cx="100" cy="100" r="50" fill="red" />
     <text x="10" y="50" font-family="Verdana" font-size="15" fill="blue">${new Date().toLocaleString()}</text>
-    <text x="20" y="70" font-family="Verdana" font-size="15" fill="red">pinto smells</text>
+    <text x="20" y="70" font-family="Verdana" font-size="15" fill="black">pinto smells</text>
 </svg>`;
 
 	// Convert the SVG to a PNG
